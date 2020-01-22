@@ -8,6 +8,12 @@ import "leaflet.gridlayer.googlemutant";
 export default function LeafletMap() {
   const mapRef = useRef();
   useEffect(() => {
+    window.L.gridLayer
+      .googleMutant({
+        type: "roadmap",
+      })
+      .addTo(mapRef.current.leafletElement);
+
     for (const layerUrl of [
       "https://www.topofthesouthmaps.co.nz/arcgis/rest/services/DataServices/MapServer/11",
       "https://www.topofthesouthmaps.co.nz/arcgis/rest/services/DataServices/MapServer/12",
@@ -17,12 +23,6 @@ export default function LeafletMap() {
       });
       tileLayer.addTo(mapRef.current.leafletElement);
     }
-
-    window.L.gridLayer
-      .googleMutant({
-        type: "roadmap",
-      })
-      .addTo(mapRef.current.leafletElement);
   }, []);
 
   return (
