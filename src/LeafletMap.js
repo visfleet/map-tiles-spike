@@ -1,8 +1,9 @@
 import React, { useRef, useEffect } from "react";
-import { Map, TileLayer } from "react-leaflet";
+import { Map } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { FeatureLayer } from "esri-leaflet";
 import "esri-leaflet-renderers";
+import "leaflet.gridlayer.googlemutant";
 
 export default function LeafletMap() {
   const mapRef = useRef();
@@ -16,6 +17,12 @@ export default function LeafletMap() {
       });
       tileLayer.addTo(mapRef.current.leafletElement);
     }
+
+    window.L.gridLayer
+      .googleMutant({
+        type: "roadmap",
+      })
+      .addTo(mapRef.current.leafletElement);
   }, []);
 
   return (
@@ -36,9 +43,7 @@ export default function LeafletMap() {
             center: [-41.17865397233169, 173.64990234375003],
             zoom: 15,
           }}
-        >
-          <TileLayer url="https://a.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        </Map>
+        ></Map>
       </div>
     </>
   );
